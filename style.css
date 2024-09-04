@@ -1,0 +1,13 @@
+body {
+    padding: 1%;
+}
+
+h1 {
+    padding: 2%;
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+}
