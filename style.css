@@ -1,5 +1,6 @@
 body {
     padding: 1%;
+    font-family: "Poppins", sans-serif;
 }
 
 h1 {
@@ -10,4 +11,9 @@ h1 {
 .flex-container {
     display: flex;
     justify-content: space-around;
+}
+
+#tagline {
+    font-size: 150%;
+    text-align: center;
 }
