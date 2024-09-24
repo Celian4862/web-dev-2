@@ -1,7 +1,7 @@
 body {
-    padding: 1%;
+    padding: 0;
     font-family: "Poppins", sans-serif;
-    margin: 0.5% 15%;
+    margin: 0;
 }
 
 h1 {
@@ -10,9 +10,79 @@ h1 {
     text-align: center;
 }
 
+nav {
+    padding: 1.5%;
+}
+
 nav a {
     color: rgb(33, 37, 41);
     text-decoration: none;
+}
+
+p {
+    font-size: 150%;
+}
+
+.background-half {
+    /* display: flex; */
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/Images/buildings-rising.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    animation: slideFadeIn 2s forwards;
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
+
+.background-half h1 {
+    margin: 0;
+}
+
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in-header {
+    color: white;
+    opacity: 0;
+    animation: fadeIn 2s forwards 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-description {
+    opacity: 0;
+    animation: fadeIn 2s forwards 1.5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .flex-container {
