@@ -12,28 +12,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <!-- Tailwind CSS -->
-        <link rel="stylesheet" type="text/css" href="./assets/css/output.css">
+        <!-- <link rel="stylesheet" type="text/css" href="./assets/css/output.css"> -->
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     </head>
-    <body>
-        <nav class="container-sm">
-            <div class="row">
-                <div class="col flex-container">
-                    <a href="./index.html">Home</a>
-                    <a href="./about_us.html">About Us</a>
-                    <a href="./support.html">Support</a>
-                </div>
-                <form class="col flex-container">
-                    <input style="width: 70%;" type="text" placeholder="Search...">
-                    <button style="width: 20%;" type="submit">Search</button>
-                </form>
-                <div class="col-sm-2 flex-container">
-                    <span>Sign up</span>
-                    <a href="./login.html">Log in</a>
-                </div>
-            </div>
-        </nav>
+        <?php include "./components/nav/nav.html"; ?>
         <div class="background-half">
             <h1 class="fade-in-header">Everyone deserves to live in a well-constructed area.</h1>
             <p class="fade-in-description">But over time, the quality of infrastructure starts to go down.</p>
