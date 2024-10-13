@@ -99,6 +99,10 @@ p {
     width: 20%;
 }
 
+#about-us-intro {
+    padding: 0 5%;
+}
+
 #support-list {
     list-style-type: none;
 }
