@@ -22,10 +22,10 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Log In</button>
-                            <a href="signup.html" class="btn btn-outline-secondary">Sign Up</a>
+                            <a href="./signup.php" class="btn btn-outline-secondary">Sign Up</a>
                         </div>
                         <div class="text-center mt-3">
-                            <a href="fpass.html">Forgot password?</a>
+                            <a href="./fpass.php">Forgot password?</a>
                         </div>
                     </form>
                 </div>
