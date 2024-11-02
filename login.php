@@ -1,9 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Login - Build Your City Your Way</title>
+        <title>Login - A&ccedil;a&iacute;</title>
         <?php require "./components/head/head.html"; ?>
-        <link rel="stylesheet" type="text/css" href="./assets/css/login.css">
     </head>
     <body style="font-family: Poppins, serif;">
         <?php include "./components/nav/nav.html"; ?>
@@ -11,7 +10,7 @@
             <h2 class="text-center">Log In</h2>
             <div class="row justify-content-center">
                 <div class="col-md-4">
-                    <form>
+                    <form action="./check_credentials.php" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email">
@@ -22,7 +21,7 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Log In</button>
-                            <a href="./signup.php" class="btn btn-outline-secondary">Sign Up</a>
+                            <a href="./signup.php" class="btn btn-outline-secondary">Create account</a>
                         </div>
                         <div class="text-center mt-3">
                             <a href="./fpass.php">Forgot password?</a>

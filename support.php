@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Build Your City Your Way</title>
+        <title>Support - A&ccedil;a&iacute;</title>
         <?php require "./components/head/head.html"; ?>
     </head>
     <body>
