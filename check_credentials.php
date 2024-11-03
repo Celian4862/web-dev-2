@@ -1,20 +1,6 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        require 'vendor/autoload.php';
-
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-
-        $servername = $_ENV['DB_SERVER'];
-        $username = $_ENV['DB_USERNAME'];
-        $password = $_ENV['DB_PASSWORD'];
-        $dbname = $_ENV['DB_NAME'];
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        require "config.php";
 
         if (isset($_POST['email']) && isset($_POST['password'])) {
             $email = $_POST['email'];
@@ -34,6 +20,7 @@
                     session_start();
                     $_SESSION['username'] = $user['username'];
                     header("Location: ./dashboard.php");
+                    exit();
                 } else {
                     echo "Error: Incorrect password.";
                 }
@@ -45,6 +32,8 @@
         } else {
             echo "Error: Missing required fields.";
         }
+        $conn->close();
     } else {
         header("Location: ./login.php");
+        exit();
     }

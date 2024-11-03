@@ -1,20 +1,6 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        require 'vendor/autoload.php';
-
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-
-        $servername = $_ENV['DB_SERVER'];
-        $username = $_ENV['DB_USERNAME'];
-        $password = $_ENV['DB_PASSWORD'];
-        $dbname = $_ENV['DB_NAME'];
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        require "config.php";
 
         if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['dob'])) {
             $email = $_POST['email'];
@@ -65,6 +51,7 @@
 
             if ($stmt->execute()) {
                 header("Location: ./dashboard.php");
+                exit();
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -77,4 +64,5 @@
         $conn->close();
     } else {
         header("Location: ./signup.php");
+        exit();
     }
