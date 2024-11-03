@@ -1,3 +1,19 @@
+<?php
+    session_set_cookie_params([
+        'lifetime' => 0, // Session cookie, expires when the browser closes
+        'path' => '/',
+        'secure' => true, // Only send cookie over HTTPS
+        'httponly' => true // Prevent JavaScript access to the cookie
+    ]);
+    session_start();
+    session_regenerate_id(false);
+
+    if (isset($_SESSION['username'])) {
+        header("Location: ./dashboard.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,22 +26,42 @@
             <h2 class="text-center">Sign Up</h2>
             <div class="row justify-content-center">
                 <div class="col-md-4">
-                    <form action="./add_account.php" method="POST" onsubmit="return validateForm()">
+                    <form action="./assets/processing_php/add_account.php" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                            <!-- DISPLAY ERROR MESSAGE -->
+                            <?php if (isset($_GET['email_exists'])) { ?>
+                                <div class="text-danger">Email already exists.</div>
+                            <?php } else if (isset($_GET['invalid_email'])) { ?>
+                                <div class="text-danger">Invalid email format.</div>
+                            <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                            <!-- DISPLAY ERROR MESSAGE -->
+                            <?php if (isset($_GET['name_exists'])) { ?>
+                                <div class="text-danger">Username already exists.</div>
+                            <?php } else if (isset($_GET['invalid_name'])) { ?>
+                                <div class="text-danger">Username can only contain letters, numbers, and underscores.</div>
+                            <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <!-- DISPLAY ERROR MESSAGE -->
+                            <?php if (isset($_GET['invalid_password'])) { ?>
+                                <div class="text-danger">Password must either be at least 16 characters long or should contain at least one lowercase letter, one uppercase letter, one special character, and one number, and can be 8 - 15 characters long.</div>
+                            <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password" required>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                            <!-- DISPLAY ERROR MESSAGE -->
+                            <?php if (isset($_GET["password_nomatch"])) { ?>
+                                <div class="text-danger">Passwords do not match.</div>
+                            <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
