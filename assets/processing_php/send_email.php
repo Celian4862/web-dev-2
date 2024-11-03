@@ -23,17 +23,16 @@
             $headers = "From: no-reply@yourwebsite.com";
 
             if (mail($email, $subject, $message, $headers)) {
-                header("Location: fpass.php?status=sent");
-                exit();
+                header("Location: ./../../fpass.php?status=sent");
             } else {
-                echo "Failed to send email.";
+                header("Location: ./../../fpass.php?status=fail");
             }
         } else {
-            echo "No account found with that email.";
+            header("Location: ./../../fpass.php?status=email_not_found");
         }
-
+        $stmt->close();
         $conn->close();
     } else {
-        header("Location: fpass.php");
+        header("Location: ./../../fpass.php");
         exit();
     }

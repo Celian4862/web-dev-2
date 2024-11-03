@@ -19,21 +19,16 @@
                 if (password_verify($password, $user['password'])) {
                     session_start();
                     $_SESSION['username'] = $user['username'];
-                    header("Location: ./dashboard.php");
-                    exit();
+                    header("Location: ./../../dashboard.php");
                 } else {
-                    echo "Error: Incorrect password.";
+                    header("Location: ./../../login.php?error");
                 }
             } else {
-                echo "Error: Account not found.";
+                header("Location: ./../../login.php?error");
             }
-
             $stmt->close();
-        } else {
-            echo "Error: Missing required fields.";
         }
         $conn->close();
     } else {
         header("Location: ./login.php");
-        exit();
     }
