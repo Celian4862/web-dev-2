@@ -1,8 +1,13 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require "./../../components/session_details.php";
+
         require "./config.php";
 
         if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['dob'])) {
+            $_SESSION['_username'] = $_POST['username'];
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['dob'] = $_POST['dob'];
             $flag = false;
             $get_req = "?";
 
@@ -22,6 +27,7 @@
             if ($checkEmailStmt->num_rows > 0) {
                 $flag = true;
                 $get_req .= "email_exists&";
+                unset($_SESSION['email']);
             }
             $checkEmailStmt->close();
 
@@ -34,6 +40,7 @@
             if ($checkUsernameStmt->num_rows > 0) {
                 $flag = true;
                 $get_req .= "name_exists&";
+                unset($_SESSION['_username']);
             }
             $checkUsernameStmt->close();
 
@@ -47,11 +54,13 @@
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $flag = true;
                 $get_req .= "invalid_email&";
+                unset($_SESSION['email']);
             }
 
             if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
                 $flag = true;
                 $get_req .= "invalid_name&";
+                unset($_SESSION['_username']);
             }
 
             if (strlen($password) < 8 || !preg_match("/^(?=.*\w)(?=.*\d)(?=.*\W)[\w\d\W]{8,}$/", $password) && strlen($password) < 16) {

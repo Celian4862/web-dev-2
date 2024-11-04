@@ -1,16 +1,18 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require "./../../components/session_details.php";
         require "config.php";
 
-        if (isset($_POST['email']) && isset($_POST['password'])) {
-            $email = $_POST['email'];
+        if (isset($_POST['name_email']) && isset($_POST['password'])) {
+            $_SESSION['name_email'] = $_POST['name_email'];
+            $name_email = $_POST['name_email'];
             $password = $_POST['password'];
 
-            $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+            $name_email = htmlspecialchars($name_email, ENT_QUOTES, 'UTF-8');
 
-            $sql = "SELECT * FROM accounts WHERE email = ?";
+            $sql = "SELECT * FROM accounts WHERE email = ? OR username = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $email);
+            $stmt->bind_param("ss", $name_email, $name_email);
             $stmt->execute();
             $result = $stmt->get_result();
             $user = $result->fetch_assoc();
@@ -21,14 +23,17 @@
                     $_SESSION['username'] = $user['username'];
                     header("Location: ./../../dashboard.php");
                 } else {
-                    header("Location: ./../../login.php?error");
+                    header("Location: ./../../login.php?invalid_pass");
                 }
             } else {
-                header("Location: ./../../login.php?error");
+                unset($_SESSION["name_email"]);
+                header("Location: ./../../login.php?invalid_user");
             }
             $stmt->close();
+        } else {
+            header("Location: ./../../login.php");
         }
         $conn->close();
     } else {
-        header("Location: ./login.php");
+        header("Location: ./../../login.php");
     }
