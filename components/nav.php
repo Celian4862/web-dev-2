@@ -13,8 +13,12 @@
             <button type="submit">Search</button>
         </form>
         <ul class="p-0 m-0">
-            <li class="d-inline-block mx-4"><a href="./signup.php">Sign up</a></li>
-            <li class="d-inline-block mx-4"><a href="./login.php">Log in</a></li>
+            <?php if (isset($_SESSION["username"])) { ?>
+                <li class="d-inline-block mx-4"><a href="./assets/processing_php/logout.php">Log out</a></li>
+            <?php } else { ?>
+                <li class="d-inline-block mx-4"><a href="./signup.php">Sign up</a></li>
+                <li class="d-inline-block mx-4"><a href="./login.php">Log in</a></li>
+            <?php } ?>
         </ul>
     </div>
 </nav>
