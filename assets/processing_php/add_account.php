@@ -54,7 +54,7 @@
                 $get_req .= "invalid_name&";
             }
 
-            if (strlen($password) < 8 || !preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?& ]{8,}$/", $password) && strlen($password) < 16) {
+            if (strlen($password) < 8 || !preg_match("/^(?=.*\w)(?=.*\d)(?=.*\W)[\w\d\W]{8,}$/", $password) && strlen($password) < 16) {
                 $flag = true;
                 $get_req .= "invalid_password&";
             }
