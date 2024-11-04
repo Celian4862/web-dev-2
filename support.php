@@ -1,11 +1,14 @@
+<?php
+    require "./components/session_details.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Support - A&ccedil;a&iacute;</title>
-        <?php require "./components/head/head.html"; ?>
+        <?php require "./components/head.html"; ?>
     </head>
     <body>
-        <?php include "./components/nav/nav.html"; ?>
+        <?php include "./components/nav.php"; ?>
         <div class="text-center">
             <h1>Need assistance?</h1>
             <p style="font-size: 150%;">Contact our support team using the details below!</p>

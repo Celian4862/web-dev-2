@@ -2,10 +2,10 @@
 <html>
     <head>
         <title>Forgot Password - A&ccedil;a&iacute;</title>
-        <?php require "./components/head/head.html"; ?>
+        <?php require "./components/head.html"; ?>
     </head>
     <body>
-        <?php include "./components/nav/nav.html";
+        <?php include "./components/nav.php";
             if (isset($_GET['status'])) {
                 if ($_GET['status'] == 'sent') {
                     echo '<div class="alert alert-success">An email has been sent to your address.</div>';

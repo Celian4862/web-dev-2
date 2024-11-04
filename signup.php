@@ -1,27 +1,19 @@
 <?php
-    session_set_cookie_params([
-        'lifetime' => 0, // Session cookie, expires when the browser closes
-        'path' => '/',
-        'secure' => true, // Only send cookie over HTTPS
-        'httponly' => true // Prevent JavaScript access to the cookie
-    ]);
-    session_start();
-    session_regenerate_id(false);
-
+    require "./components/session_details.php";
     if (isset($_SESSION['username'])) {
         header("Location: ./dashboard.php");
         exit();
-    }
+    } ?>
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Sign Up - A&ccedil;a&iacute;</title>
-        <?php require "./components/head/head.html"; ?>
+        <?php require "./components/head.html"; ?>
     </head>
     <body style="font-family: Poppins, serif;">
-        <?php include "./components/nav/nav.html"; ?>
+        <?php include "./components/nav.php"; ?>
         <div class="container mt-5">
             <h2 class="text-center">Sign Up</h2>
             <div class="row justify-content-center">
@@ -29,7 +21,7 @@
                     <form action="./assets/processing_php/add_account.php" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>">
                             <!-- DISPLAY ERROR MESSAGE -->
                             <?php if (isset($_GET['email_exists'])) { ?>
                                 <div class="text-danger">Email already exists.</div>
@@ -39,7 +31,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="<?php echo isset($_SESSION['_username']) ? $_SESSION['_username'] : ''; ?>">
                             <!-- DISPLAY ERROR MESSAGE -->
                             <?php if (isset($_GET['name_exists'])) { ?>
                                 <div class="text-danger">Username already exists.</div>
@@ -65,7 +57,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required>
+                            <input type="date" class="form-control" id="dob" name="dob" required value="<?php echo isset($_SESSION['dob']) ? $_SESSION['dob'] : ''; ?>">
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Create account</button>
@@ -77,3 +69,7 @@
         </div>
     </body>
 </html>
+<?php
+    unset($_SESSION['email']);
+    unset($_SESSION['_username']);
+    unset($_SESSION['dob']);
