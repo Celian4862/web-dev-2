@@ -35,6 +35,7 @@
             header("Location: ./../../login.php");
         }
         $conn->close();
-    } else {
+            break;
+        default:
         header("Location: ./../../login.php");
     }
