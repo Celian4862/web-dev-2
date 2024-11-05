@@ -1,5 +1,6 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    switch ($_SERVER["REQUEST_METHOD"]) {
+        case "POST":
         include "./../SQL_queries/accounts.php";
         require "./../../components/session_details.php";
         require "./config.php";
@@ -101,7 +102,8 @@
         }
 
         $conn->close();
-    } else {
+            break;
+        default:
         header("Location: ./../../signup.php");
         exit();
     }
