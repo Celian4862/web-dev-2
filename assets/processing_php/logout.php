@@ -12,9 +12,7 @@
         session_regenerate_id(true); // Regenerate session ID to prevent fixation
         session_unset();
         session_destroy();
-        header("Location: ./../../login.php");
-        exit();
+        header("Location: ./../../index.php");
     } else {
-        header("Location: ./../../login.php");
-        exit();
+        header("Location: ./../../index.php");
     }
