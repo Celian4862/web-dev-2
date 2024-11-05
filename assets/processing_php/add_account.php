@@ -5,9 +5,12 @@
             require "./../../components/session_details.php";
             require "./config.php";
 
-            $_SESSION['_username'] = $username = $_POST['username'];
-            $_SESSION['email'] = $email = $_POST['email'];
-            $_SESSION['dob'] = $birthdate = $_POST['dob'];
+            array_map(function ($key) {
+                $_SESSION[$key] = $_POST[$key];
+            }, ['username', 'email', 'dob']);
+            array_map(function ($key) use (&$username, &$email, &$birthdate) {
+                $_SESSION[$key] = $$key = $_POST[$key];
+            }, ['username', 'email', 'dob']);
             $password = $_POST['password'];
             $flag = false;
 
@@ -38,7 +41,7 @@
 
             if ($checkUsernameStmt->num_rows > 0) {
                 $flag = $_SESSION['name_exists'] = true;
-                unset($_SESSION['_username']);
+                unset($_SESSION['username']);
             }
             $checkUsernameStmt->close();
 
@@ -56,7 +59,7 @@
 
             if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
                 $flag = $_SESSION['invalid_name'] = true;
-                unset($_SESSION['_username']);
+                unset($_SESSION['username']);
             }
 
             if (strlen($password) < 8 || !preg_match("/^(?=.*\w)(?=.*\d)(?=.*\W)[\w\d\W]{8,}$/", $password) && strlen($password) < 16) {
@@ -86,7 +89,7 @@
 
             if ($stmt->execute()) {
                 session_start();
-                $_SESSION['username'] = $username;
+                $_SESSION['user'] = $conn->insert_id;
                 header("Location: ./../../dashboard.php");
             } else {
                 echo "Error: {$sql}<br>{$conn->error}";
