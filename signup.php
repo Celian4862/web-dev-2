@@ -1,6 +1,6 @@
 <?php
     require "./components/session_details.php";
-    if (isset($_SESSION['username'])) {
+    if (isset($_SESSION['user'])) {
         header("Location: ./dashboard.php");
         exit();
     }
@@ -36,7 +36,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="<?= $_SESSION['_username'] ?? ''; ?>">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="<?= $_SESSION['username'] ?? ''; ?>">
                             <!-- DISPLAY ERROR MESSAGE -->
                             <?php if (check_valid("name_exists")) { ?>
                                 <div class="text-danger">Username already exists.</div>
@@ -78,4 +78,4 @@
     // Unset session variables to clear fields and messages upon reload
     array_map(function($key) {
         unset($_SESSION[$key]);
-    }, ['email', '_username', 'dob', 'email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);
+    }, ['email', 'username', 'dob', 'email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);
