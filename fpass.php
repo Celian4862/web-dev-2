@@ -1,5 +1,5 @@
 <?php
-    require "./assets/components/session_details.php";
+    require "./components/session_details.php";
 
     if (isset($_SESSION['username'])) {
         header ("Location: ./dashboard.php");
