@@ -1,9 +1,9 @@
 <?php
     switch ($_SERVER["REQUEST_METHOD"]) {
         case "POST":
-        include "./../SQL_queries/accounts.php";
-        require "./../../components/session_details.php";
-        require "./config.php";
+            include "./../SQL_queries/accounts.php";
+            require "./../../components/session_details.php";
+            require "./config.php";
 
             $_SESSION['_username'] = $username = $_POST['username'];
             $_SESSION['email'] = $email = $_POST['email'];
@@ -93,8 +93,8 @@
                 header("refresh:2;url=./../../signup.php");
             }
             $stmt->close();
-        $conn->close();
+            $conn->close();
             break;
         default:
-        header("Location: ./../../signup.php");
+            header("Location: ./../../signup.php");
     }
