@@ -1,6 +1,6 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        include "./../SQL_queries/accounts.sql";
+        include "./../SQL_queries/accounts.php";
         require "./../../components/session_details.php";
         require "./config.php";
 
