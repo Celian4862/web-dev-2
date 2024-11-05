@@ -18,6 +18,7 @@
         </form>
         <ul class="p-0 m-0">
             <?php if (isset($_SESSION["username"])) { ?>
+                <li class="d-inline-block mx-4"><a href="./user_settings.php">Settings</a></li>
                 <li class="d-inline-block mx-4"><a href="./assets/processing_php/logout.php">Log out</a></li>
             <?php } else { ?>
                 <li class="d-inline-block mx-4"><a href="./signup.php">Sign up</a></li>
