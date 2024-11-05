@@ -61,8 +61,8 @@
                             <?php } ?>
                         </div>
                         <div class="mb-3">
-                            <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required value="<?= $_SESSION['dob'] ?? ''; ?>">
+                            <label for="birthdate" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="birthdate" name="birthdate" required value="<?= $_SESSION['birthdate'] ?? ''; ?>">
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Create account</button>
@@ -78,4 +78,4 @@
     // Unset session variables to clear fields and messages upon reload
     array_map(function($key) {
         unset($_SESSION[$key]);
-    }, ['email', 'username', 'dob', 'email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);
+    }, ['email', 'username', 'birthdate', 'email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);

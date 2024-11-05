@@ -5,12 +5,9 @@
             require "./../../components/session_details.php";
             require "./config.php";
 
-            array_map(function ($key) {
-                $_SESSION[$key] = $_POST[$key];
-            }, ['username', 'email', 'dob']);
             array_map(function ($key) use (&$username, &$email, &$birthdate) {
                 $_SESSION[$key] = $$key = $_POST[$key];
-            }, ['username', 'email', 'dob']);
+            }, ['username', 'email', 'birthdate']);
             $password = $_POST['password'];
             $flag = false;
 
