@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    require "./components/session_details.php";
     if (isset($_SESSION['username'])) { ?>
         <!DOCTYPE html>
         <html>
