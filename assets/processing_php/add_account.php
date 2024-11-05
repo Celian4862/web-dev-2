@@ -5,17 +5,16 @@
         require "./../../components/session_details.php";
         require "./config.php";
 
-        if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['dob'])) {
-            $_SESSION['_username'] = $_POST['username'];
-            $_SESSION['email'] = $_POST['email'];
-            $_SESSION['dob'] = $_POST['dob'];
-            $flag = false;
-            $get_req = "?";
-
-            $email = $_POST['email'];
-            $username = $_POST['username'];
+            $_SESSION['_username'] = $username = $_POST['username'];
+            $_SESSION['email'] = $email = $_POST['email'];
+            $_SESSION['dob'] = $birthdate = $_POST['dob'];
             $password = $_POST['password'];
-            $birthdate = $_POST['dob'];
+            $flag = false;
+
+            // For displaying errors
+            array_map(function($key) {
+                $_SESSION[$key] = false;
+            }, ['email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);
 
             // Server-side validation
             // First section: check if email and username already exist
@@ -97,13 +96,9 @@
                 echo "Error: {$sql}<br>{$conn->error}";
                 header("refresh:2;url=./../../signup.php");
             }
-
             $stmt->close();
-        }
-
         $conn->close();
             break;
         default:
         header("Location: ./../../signup.php");
-        exit();
     }
