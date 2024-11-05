@@ -1,4 +1,8 @@
 <?php
+    require './../../vendor/autoload.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
     switch ($_SERVER["REQUEST_METHOD"]) {
         case "POST":
             require "config.php";
@@ -17,15 +21,38 @@
                 $stmt->bind_param("ss", $token, $email);
                 $stmt->execute();
 
-                // Send reset password email
+                // Send reset password email using PHPMailer
                 $resetLink = "localhost/web-dev-2/reset_password.php?token={$token}";
                 $subject = "Password Reset Request";
                 $message = "Click the following link to reset your password: {$resetLink}";
-                $headers = "From: no-reply@yourwebsite.com";
 
-                if (mail($email, $subject, $message, $headers)) {
+                $mail = new PHPMailer(true);
+                try {
+                    require './../../vendor/autoload.php';
+
+                    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+                    $dotenv->load();
+                    //Server settings
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $_ENV['SENDER_EMAIL'];
+                    $mail->Password = $_ENV['EMAIL_PASS'];
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
+            
+                    //Recipients
+                    $mail->setFrom('no-reply@acai.com', 'Acai');
+                    $mail->addAddress($email);
+            
+                    //Content
+                    $mail->isHTML(true);
+                    $mail->Subject = $subject;
+                    $mail->Body    = $message;
+            
+                    $mail->send();
                     header("Location: ./../../fpass.php?status=sent");
-                } else {
+                } catch (Exception $e) {
                     header("Location: ./../../fpass.php?status=fail");
                 }
             } else {
