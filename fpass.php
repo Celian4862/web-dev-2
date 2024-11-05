@@ -1,3 +1,12 @@
+<?php
+    require "./assets/components/session_details.php";
+
+    if (isset($_SESSION['username'])) {
+        header ("Location: ./dashboard.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
