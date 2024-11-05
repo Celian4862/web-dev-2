@@ -25,8 +25,7 @@
             $checkEmailStmt->store_result();
 
             if ($checkEmailStmt->num_rows > 0) {
-                $flag = true;
-                $get_req .= "email_exists&";
+                $flag = $_SESSION['email_exists'] = true;
                 unset($_SESSION['email']);
             }
             $checkEmailStmt->close();
@@ -38,45 +37,42 @@
             $checkUsernameStmt->store_result();
 
             if ($checkUsernameStmt->num_rows > 0) {
-                $flag = true;
-                $get_req .= "name_exists&";
+                $flag = $_SESSION['name_exists'] = true;
                 unset($_SESSION['_username']);
             }
             $checkUsernameStmt->close();
 
             if ($flag) {
                 $conn->close();
-                header("Location: ./../../signup.php{$get_req}");
+                header("Location: ./../../signup.php");
                 exit();
             }
 
             // Second section: validate email, username, and password
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $flag = true;
-                $get_req .= "invalid_email&";
+                $flag = $_SESSION['invalid_email'] = true;
                 unset($_SESSION['email']);
             }
 
             if (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
-                $flag = true;
-                $get_req .= "invalid_name&";
+                $flag = $_SESSION['invalid_name'] = true;
                 unset($_SESSION['_username']);
             }
 
             if (strlen($password) < 8 || !preg_match("/^(?=.*\w)(?=.*\d)(?=.*\W)[\w\d\W]{8,}$/", $password) && strlen($password) < 16) {
-                $flag = true;
-                $get_req .= "invalid_password&";
+                $flag = $_SESSION['invalid_password'] = true;
             }
 
             if ($flag) {
                 $conn->close();
-                header("Location: ./../../signup.php{$get_req}");
+                header("Location: ./../../signup.php");
                 exit();
             }
 
             if ($password !== $_POST['confirm-password']) {
                 $conn->close();
-                header("Location: ./../../signup.php?password_nomatch");
+                $_SESSION['password_nomatch'] = true;
+                header("Location: ./../../signup.php");
                 exit();
             }
 
