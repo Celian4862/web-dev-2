@@ -4,6 +4,11 @@
         header("Location: ./dashboard.php");
         exit();
     }
+
+    // Helper function to display error messages
+    function check_valid(string $session_var) {
+        return isset($_SESSION[$session_var]) && $_SESSION[$session_var];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -21,21 +26,21 @@
                     <form action="./assets/processing_php/add_account.php" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="<?= $_SESSION['email'] ?? ''; ?>">
                             <!-- DISPLAY ERROR MESSAGE -->
-                            <?php if (isset($_GET['email_exists'])) { ?>
+                            <?php if (check_valid("email_exists")) { ?>
                                 <div class="text-danger">Email already exists.</div>
-                            <?php } else if (isset($_GET['invalid_email'])) { ?>
+                            <?php } else if (check_valid("invalid_email")) { ?>
                                 <div class="text-danger">Invalid email format.</div>
                             <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="<?php echo isset($_SESSION['_username']) ? $_SESSION['_username'] : ''; ?>">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="<?= $_SESSION['_username'] ?? ''; ?>">
                             <!-- DISPLAY ERROR MESSAGE -->
-                            <?php if (isset($_GET['name_exists'])) { ?>
+                            <?php if (check_valid("name_exists")) { ?>
                                 <div class="text-danger">Username already exists.</div>
-                            <?php } else if (isset($_GET['invalid_name'])) { ?>
+                            <?php } else if (check_valid("invalid_name")) { ?>
                                 <div class="text-danger">Username can only contain letters, numbers, and underscores.</div>
                             <?php } ?>
                         </div>
@@ -43,7 +48,7 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
                             <!-- DISPLAY ERROR MESSAGE -->
-                            <?php if (isset($_GET['invalid_password'])) { ?>
+                            <?php if (check_valid("invalid_password")) { ?>
                                 <div class="text-danger">Password must either be at least 16 characters long or should contain at least one lowercase letter, one uppercase letter, one special character, and one number, and can be 8 - 15 characters long.</div>
                             <?php } ?>
                         </div>
@@ -51,13 +56,13 @@
                             <label for="confirm-password" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
                             <!-- DISPLAY ERROR MESSAGE -->
-                            <?php if (isset($_GET["password_nomatch"])) { ?>
+                            <?php if (check_valid("password_nomatch")) { ?>
                                 <div class="text-danger">Passwords do not match.</div>
                             <?php } ?>
                         </div>
                         <div class="mb-3">
                             <label for="dob" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" required value="<?php echo isset($_SESSION['dob']) ? $_SESSION['dob'] : ''; ?>">
+                            <input type="date" class="form-control" id="dob" name="dob" required value="<?= $_SESSION['dob'] ?? ''; ?>">
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Create account</button>
@@ -70,6 +75,7 @@
     </body>
 </html>
 <?php
-    unset($_SESSION['email']);
-    unset($_SESSION['_username']);
-    unset($_SESSION['dob']);
+    // Unset session variables to clear fields and messages upon reload
+    array_map(function($key) {
+        unset($_SESSION[$key]);
+    }, ['email', '_username', 'dob', 'email_exists', 'name_exists', 'invalid_email', 'invalid_name', 'invalid_password', 'password_nomatch']);
