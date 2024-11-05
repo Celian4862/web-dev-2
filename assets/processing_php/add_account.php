@@ -1,7 +1,7 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        include "./../SQL_queries/accounts.sql";
         require "./../../components/session_details.php";
-
         require "./config.php";
 
         if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['dob'])) {
