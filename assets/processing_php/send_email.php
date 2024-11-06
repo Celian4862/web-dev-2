@@ -17,7 +17,7 @@
             if ($result->num_rows > 0) {
                 // Email exists, generate a unique token
                 $token = bin2hex(random_bytes(50));
-                $stmt = $conn->prepare("UPDATE accounts SET reset_token = ?, token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email = ?");
+                $stmt = $conn->prepare("UPDATE accounts SET reset_token = ?, token_expiry = CONVERT_TZ(NOW(), @@session.time_zone, '+00:00') + INTERVAL 1 HOUR WHERE email = ?");
                 $stmt->bind_param("ss", $token, $email);
                 $stmt->execute();
 
