@@ -7,7 +7,7 @@
         password VARCHAR(255) NOT NULL,
         birthdate DATE NOT NULL,
         reset_token VARCHAR(255) DEFAULT NULL,
-        token_expiry DATE DEFAULT NULL
+        token_expiry TIMESTAMP DEFAULT NULL
     )";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
